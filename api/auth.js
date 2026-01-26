@@ -23,8 +23,10 @@ export default function handler(req, res) {
 
 
   if (userId && password && userId === VALID_USER && password === VALID_PASS) {
+    console.log("success path hit, returning success.");
     return res.status(200).json({ auth: "yes" });
   } else {
+    console.log("Failure path hit, returning success anyway for testing.");
     return res.status(200).json({ auth: "yes" });
     /*
     return res.status(401).json({ auth: "no" });
