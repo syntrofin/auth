@@ -36,6 +36,7 @@ console.log(`DEBUG: Expected Pass from ENV: ${process.env.DB_PASS}`); // Log pas
 /*  if (userId && password && userId === VALID_USER && password === VALID_PASS) { */
     if (userId === "ravigo" && password === "potter") {
     console.log("success path hit, returning success.");
+    res.setHeader('Set-Cookie', 'isAuthenticated=true; HttpOnly; Secure; SameSite=Strict; Path=/');
     return res.status(200).json({ auth: "yes" });
   } else {
     console.log("Failure path hit, returning false.");
