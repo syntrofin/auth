@@ -21,6 +21,12 @@ export default function handler(req, res) {
   const VALID_USER = process.env.DB_USER;
   const VALID_PASS = process.env.DB_PASS;
 
+// *** ADD THESE LOGS FOR DEBUGGING ***
+  console.log(`DEBUG: User Input: ${userId}`);
+  console.log(`DEBUG: Expected User from ENV: ${VALID_USER}`); // Check this in Vercel Logs
+  // This is the secure way:
+console.log(`DEBUG: User Input: ${password}`);
+console.log(`DEBUG: Expected Pass from ENV: ${process.env.DB_PASS}`); // Log password ONLY IF absolutely necessary for immediate debugging, then remove immediately
 
   if (userId && password && userId === VALID_USER && password === VALID_PASS) {
     console.log("success path hit, returning success.");
