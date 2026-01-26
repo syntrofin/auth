@@ -1,20 +1,26 @@
 export default function handler(req, res) {
-  // 1. Only allow POST requests for security
+  // Add CORS headers to the response
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allows all domains for testing
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    // Handle the CORS preflight request
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // 2. Get the data sent from your static page
   const { userId, password } = req.body;
+  const VALID_USER = "admin";
+  const VALID_PASS = "secret123";
 
-  // 3. YOUR DATA (Hidden from the user)
-  const VALID_USER = "ravigo";
-  const VALID_PASS = "potter";
-
-  // 4. The "Yes/No" check
   if (userId === VALID_USER && password === VALID_PASS) {
     return res.status(200).json({ auth: "yes" });
   } else {
     return res.status(401).json({ auth: "no" });
   }
 }
+
