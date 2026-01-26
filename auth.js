@@ -1,4 +1,5 @@
 export default function handler(req, res) {
+  /*
   // Add CORS headers to the response (Crucial for your test page)
   res.setHeader('Access-Control-Allow-Origin', '*'); // Allows all domains for testing
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -13,7 +14,7 @@ export default function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-
+*/
   // 2. Get the data sent from your static page
   const { userId, password } = req.body;
 
