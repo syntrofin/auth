@@ -11,6 +11,10 @@ export default function handler(req, res) {
     return res.status(200).end();
   }
 
+    // *** ADD THESE LOGS ***
+  console.log(`DEBUG: Request Method: ${req.method}`);
+  console.log('DEBUG: Request Body:', req.body);
+
   // 3. Method check
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
