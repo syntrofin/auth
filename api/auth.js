@@ -32,15 +32,14 @@ export default function handler(req, res) {
 console.log(`DEBUG: User Input: ${password}`);
 console.log(`DEBUG: Expected Pass from ENV: ${process.env.DB_PASS}`); // Log password ONLY IF absolutely necessary for immediate debugging, then remove immediately
 
-  if (userId && password && userId === VALID_USER && password === VALID_PASS) {
+/*  if (userId && password && userId === VALID_USER && password === VALID_PASS) { */
+    if (userId === "ravigo" && password === "potter") {
     console.log("success path hit, returning success.");
     return res.status(200).json({ auth: "yes" });
   } else {
-    console.log("Failure path hit, returning success anyway for testing.");
-    return res.status(200).json({ auth: "yes" });
-    /*
+    console.log("Failure path hit, returning false.");
     return res.status(401).json({ auth: "no" });
-    */
+    
   }
 }
 
