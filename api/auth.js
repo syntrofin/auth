@@ -15,16 +15,12 @@ export default function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-  /*
+
   // 4. Data check
   const { userId, password } = req.body || {};
   const VALID_USER = process.env.DB_USER;
   const VALID_PASS = process.env.DB_PASS;
-  */
 
-    // --- REPLACE THESE WITH YOUR TEST VALUES ---
-  const VALID_USER = "test"; 
-  const VALID_PASS = "testP@ss";
 
   if (userId && password && userId === VALID_USER && password === VALID_PASS) {
     return res.status(200).json({ auth: "yes" });
