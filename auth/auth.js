@@ -22,6 +22,10 @@ export default function handler(req, res) {
   const VALID_PASS = process.env.DB_PASS;
 
   if (userId && password && userId === VALID_USER && password === VALID_PASS) {
+     //Create a pass. We set 'auth_status=yes', but we make it 'HttpOnly' so JS can't touch it. 'Max-Age=3600' means 
+     //it self-destructs in 1 hour (Automated Logout)
+    const cookieValue = `auth_status=yes; Max-Age=3600; Path=/; HttpOnly; Secure; SameSite=None`;
+    res.setHeader('Set-Cookie', cookieValue);
     return res.status(200).json({ auth: "yes" });
   } else {
     return res.status(401).json({ auth: "no" });
