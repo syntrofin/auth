@@ -1,4 +1,6 @@
 
+
+
 export default function handler(req, res) {
   // 1. HARDCODED CORS FOR TESTING
   // This must exactly match the domain in your browser address bar
@@ -10,38 +12,20 @@ export default function handler(req, res) {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-  /* 
-    // *** ADD THESE LOGS ***
-  console.log(`DEBUG: Request Method: ${req.method}`);
-  console.log('DEBUG: Request Body:', req.body);
-   */
+
   // 3. Method check
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // 4. Data check
-  const { userId, password } = req.body || {};
-  const VALID_USER = process.env.DB_USER;
-  const VALID_PASS = process.env.DB_PASS;
-
-/* 
-// *** ADD THESE LOGS FOR DEBUGGING ***
-  console.log(`DEBUG: User Input: ${userId}`);
-  console.log(`DEBUG: Expected User from ENV: ${VALID_USER}`); // Check this in Vercel Logs
-  // This is the secure way:
-console.log(`DEBUG: User Input: ${password}`);
-console.log(`DEBUG: Expected Pass from ENV: ${process.env.DB_PASS}`); // Log password ONLY IF absolutely necessary for immediate debugging, then remove immediately
- */
-/*  if (userId && password && userId === VALID_USER && password === VALID_PASS) { */
-    if (userId === "ravigo" && password === "potter") {
-    console.log("success path hit, returning success.");
-    /* res.setHeader('Set-Cookie', 'isAuthenticated=true; HttpOnly; Secure; SameSite=Strict; Path=/');*/
+  if (userId === "ravigo" && password === "potter") {
+     //Create a pass. We set 'auth_status=yes', but we make it 'HttpOnly' so JS can't touch it. 'Max-Age=3600' means 
+     //it self-destructs in 1 hour (Automated Logout)
+    const cookieValue = `auth_status=yes; Max-Age=3600; Path=/; HttpOnly; Secure; SameSite=None`;
+    res.setHeader('Set-Cookie', cookieValue);
     return res.status(200).json({ auth: "yes" });
   } else {
-    console.log("Failure path hit, returning false.");
     return res.status(401).json({ auth: "no" });
-    
   }
 }
 
